@@ -4,26 +4,55 @@ from datetime import datetime, timedelta
 from django.utils import timezone
 
 MONTH_NAMES = {
-    "january": 1, "jan": 1,
-    "february": 2, "feb": 2,
-    "march": 3, "mar": 3,
-    "april": 4, "apr": 4,
+    "january": 1,
+    "jan": 1,
+    "february": 2,
+    "feb": 2,
+    "march": 3,
+    "mar": 3,
+    "april": 4,
+    "apr": 4,
     "may": 5,
-    "june": 6, "jun": 6,
-    "july": 7, "jul": 7,
-    "august": 8, "aug": 8,
-    "september": 9, "sep": 9, "sept": 9,
-    "october": 10, "oct": 10,
-    "november": 11, "nov": 11,
-    "december": 12, "dec": 12,
+    "june": 6,
+    "jun": 6,
+    "july": 7,
+    "jul": 7,
+    "august": 8,
+    "aug": 8,
+    "september": 9,
+    "sep": 9,
+    "sept": 9,
+    "october": 10,
+    "oct": 10,
+    "november": 11,
+    "nov": 11,
+    "december": 12,
+    "dec": 12,
 }
 
 # Words that carry no real search intent once a date phrase is stripped out --
 # e.g. "photos from last month" should reduce to "no semantic content", not
 # search for the literal word "photos".
 FILLER_WORDS = {
-    "photo", "photos", "picture", "pictures", "pic", "pics", "image", "images",
-    "show", "me", "my", "find", "get", "all", "of", "the", "a", "an", "any",
+    "photo",
+    "photos",
+    "picture",
+    "pictures",
+    "pic",
+    "pics",
+    "image",
+    "images",
+    "show",
+    "me",
+    "my",
+    "find",
+    "get",
+    "all",
+    "of",
+    "the",
+    "a",
+    "an",
+    "any",
 }
 
 # Consumed as part of a date-phrase match so it's stripped along with the
