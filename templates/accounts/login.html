@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Log in{% endblock %}
+
+{% block content %}
+<div class="mx-auto max-w-sm">
+    <h1 class="mb-6 text-xl font-semibold">Log in</h1>
+    <form method="post" class="space-y-4">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        {% for field in form %}
+            <div>
+                <label class="block text-sm font-medium" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <p class="mt-1 text-sm text-red-600">{{ field.errors|join:", " }}</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+        <button type="submit" class="w-full rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-700">
+            Log in
+        </button>
+    </form>
+    <p class="mt-4 text-sm text-gray-600">
+        No account? <a class="underline" href="{% url 'accounts:signup' %}">Sign up</a>
+    </p>
+</div>
+{% endblock %}

@@ -1,0 +1,12 @@
+Django>=5.2,<5.3
+psycopg[binary]>=3.2
+pgvector>=0.3
+django-environ>=0.12
+celery>=5.4
+redis>=5.0
+django-vite>=3.2
+django-htmx>=1.18
+pillow>=11.0
+langchain-core>=0.3
+langchain-openai>=1.6
+openai>=1.50

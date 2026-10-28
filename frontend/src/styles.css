@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+/* Tailwind's auto content-detection only walks within this Vite project root,
+   but all our markup lives in Django templates at the repo root. */
+@source "../../templates";
+
+[x-cloak] {
+    display: none !important;
+}

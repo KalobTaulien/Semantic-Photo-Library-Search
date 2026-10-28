@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Your Library{% endblock %}
+
+{% block content %}
+<h1 class="mb-6 text-xl font-semibold">Your Library</h1>
+
+<form hx-post="{% url 'photos:upload' %}"
+      hx-target="#photo-grid"
+      hx-swap="afterbegin"
+      hx-encoding="multipart/form-data"
+      class="mb-8 rounded-lg border-2 border-dashed p-8 text-center transition-colors"
+      x-data="{ dragging: false }"
+      :class="dragging ? 'border-gray-500 bg-gray-50' : 'border-gray-300'"
+      @dragover.prevent="dragging = true"
+      @dragleave.prevent="dragging = false"
+      @drop.prevent="dragging = false; $refs.fileInput.files = $event.dataTransfer.files; $refs.fileInput.form.requestSubmit()">
+    {% csrf_token %}
+    <label for="id_images" class="cursor-pointer text-sm text-gray-600">
+        Drag &amp; drop photos here, or <span class="underline">browse</span>
+    </label>
+    <input x-ref="fileInput" type="file" id="id_images" name="images" multiple accept="image/*"
+           class="mx-auto mt-3 block text-sm"
+           @change="$el.form.requestSubmit()">
+</form>
+
+{% include "photos/_gallery.html" with photos=photos grid_id="photo-grid" show_caption=True %}
+{% endblock %}

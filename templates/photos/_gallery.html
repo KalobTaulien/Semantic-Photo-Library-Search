@@ -1,0 +1,7 @@
+<div {% if grid_id %}id="{{ grid_id }}"{% endif %} class="columns-2 gap-4 md:columns-3 lg:columns-4">
+    {% for photo in photos %}
+        {% include "photos/_photo_card.html" %}
+    {% empty %}
+        <p class="text-sm text-gray-500">No matching photos yet.</p>
+    {% endfor %}
+</div>
