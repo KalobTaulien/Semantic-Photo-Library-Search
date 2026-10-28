@@ -50,9 +50,13 @@
         <button type="button"
                 class="absolute right-4 top-4 text-2xl leading-none text-white"
                 @click="modalOpen = false" aria-label="Close">&times;</button>
-        <div class="flex max-h-full max-w-3xl flex-col overflow-hidden rounded-lg bg-white">
-            <img :src="modalSrc" alt="" class="max-h-[75vh] w-full bg-black object-contain">
-            <p x-show="modalDescription" x-text="modalDescription" class="p-4 text-sm text-gray-700"></p>
+        <div class="flex max-h-[85vh] w-full max-w-5xl flex-col overflow-hidden rounded-lg bg-white shadow-xl sm:flex-row">
+            <div class="flex min-h-0 flex-1 items-center justify-center bg-black">
+                <img :src="modalSrc" alt="" class="max-h-[50vh] max-w-full object-contain sm:max-h-[85vh]">
+            </div>
+            <div x-show="modalDescription" class="w-full shrink-0 overflow-y-auto p-5 sm:w-80">
+                <p x-text="modalDescription" class="text-sm text-gray-700"></p>
+            </div>
         </div>
     </div>
 </body>
