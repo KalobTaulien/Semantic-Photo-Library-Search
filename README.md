@@ -4,6 +4,31 @@
 
 A Django app for searching your own photo library in plain English instead of tags or filenames — "the dog running on the beach", "receipts from last October", "birthday photos from this year". Every uploaded photo is described and transcribed by a vision model, embedded into a vector index, and matched against natural-language queries (with any date phrases parsed out and applied as a separate filter).
 
+## Screenshots
+
+<table>
+  <tr>
+    <td width="50%">
+      <img src="docs/screenshots/library.png" alt="Library view with uploaded photos and their AI-generated descriptions">
+      <p align="center"><em>The Library — uploaded photos with their AI-generated descriptions</em></p>
+    </td>
+    <td width="50%">
+      <img src="docs/screenshots/search-keyword.png" alt="Search results for the query &quot;Inspirational quote&quot;, matching text visible on a mug">
+      <p align="center"><em>Searching <code>Inspirational quote</code> — matched on text printed on the mug</em></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%">
+      <img src="docs/screenshots/search-date.png" alt="Search results for the query &quot;october 2026&quot;, returning every photo from that month">
+      <p align="center"><em>Searching <code>october 2026</code> — a pure date browse, newest first</em></p>
+    </td>
+    <td width="50%">
+      <img src="docs/screenshots/search-natural-language.png" alt="Search results for the query &quot;Find all images that have a nice straight road that looks like a journey&quot;, matching a photo of a church at the end of a road">
+      <p align="center"><em>Searching <code>Find all images that have a nice straight road that looks like a journey</code> — matched by meaning, not keywords</em></p>
+    </td>
+  </tr>
+</table>
+
 ## How to install
 
 The app is designed to run via Docker Compose: a Postgres database with the `pgvector` extension, Redis as the Celery broker, the Django app itself, and a Celery worker for background photo processing.
