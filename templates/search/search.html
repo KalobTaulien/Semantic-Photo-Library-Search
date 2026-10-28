@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Search{% endblock %}
+
+{% block content %}
+<div x-data="{ searching: false }">
+    <form hx-post="{% url 'search:query' %}"
+          hx-target="#search-results"
+          hx-swap="innerHTML"
+          hx-on::before-request="searching = true"
+          hx-on::after-settle="searching = false"
+          class="flex gap-2">
+        {% csrf_token %}
+        <input type="text" name="query" required autocomplete="off"
+               placeholder="What are you looking for?"
+               class="flex-1 rounded-md border border-gray-300 px-4 py-3 text-base focus:border-gray-500 focus:outline-none">
+        <button type="submit" class="rounded-md bg-gray-900 px-5 py-3 text-sm font-medium text-white hover:bg-gray-700">
+            Search
+        </button>
+    </form>
+
+    <p x-show="searching" x-cloak class="mt-6 text-sm text-gray-500">Thinking&hellip;</p>
+
+    <div id="search-results" x-show="!searching" class="mt-6">
+        <p class="text-sm text-gray-500">
+            Try searching for something, like &ldquo;sunset at the beach&rdquo;.
+        </p>
+    </div>
+</div>
+{% endblock %}

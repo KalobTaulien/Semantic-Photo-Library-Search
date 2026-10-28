@@ -25,7 +25,7 @@ INSTALLED_APPS = [
     "common",
     "accounts",
     "photos",
-    "chat",
+    "search",
 ]
 
 MIDDLEWARE = [
@@ -113,10 +113,9 @@ CELERY_RESULT_SERIALIZER = "json"
 CELERY_TASK_TRACK_STARTED = True
 
 # OpenAI / LangChain. Model names are plain config on purpose -- check your
-# OpenAI account/docs for the current vision-capable and chat model names
-# rather than trusting a value written down in the past.
+# OpenAI account/docs for the current vision-capable model name rather than
+# trusting a value written down in the past.
 OPENAI_API_KEY = env("OPENAI_API_KEY", default="")
 OPENAI_VISION_MODEL = env("OPENAI_VISION_MODEL", default="")
 OPENAI_EMBEDDING_MODEL = env("OPENAI_EMBEDDING_MODEL", default="text-embedding-3-small")
 OPENAI_EMBEDDING_DIMENSIONS = env.int("OPENAI_EMBEDDING_DIMENSIONS", default=1536)
-OPENAI_CHAT_MODEL = env("OPENAI_CHAT_MODEL", default="")

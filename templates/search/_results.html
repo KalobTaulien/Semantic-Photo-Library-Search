@@ -1,0 +1,7 @@
+{% if error %}
+    <p class="text-sm text-red-600">{{ error }}</p>
+{% elif photos %}
+    {% include "photos/_gallery.html" with photos=photos %}
+{% elif searched %}
+    <p class="text-sm text-gray-500">No matching photos found. Try a different search.</p>
+{% endif %}

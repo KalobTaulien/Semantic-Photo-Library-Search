@@ -31,7 +31,7 @@ def caption_image(image_bytes: bytes, mime_type: str) -> str:
 
 
 def embed_text(text: str) -> list[float]:
-    """Embed arbitrary text (a photo description, or a chat query) into the shared vector space."""
+    """Embed arbitrary text (a photo description, or a search query) into the shared vector space."""
     model = OpenAIEmbeddings(
         model=settings.OPENAI_EMBEDDING_MODEL,
         dimensions=settings.OPENAI_EMBEDDING_DIMENSIONS,

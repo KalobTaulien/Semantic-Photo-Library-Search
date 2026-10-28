@@ -7,15 +7,24 @@ TOP_K = 12
 # Cosine distance cutoff (0 = identical direction, 1 = unrelated, 2 = opposite).
 # Without this, a query always pulls back up to TOP_K photos regardless of how
 # distant the "closest" ones actually are -- a narrow question would still drag
-# in a dozen barely-related photos. This keeps responses scoped to genuine
+# in a dozen barely-related photos. This keeps results scoped to genuine
 # matches; broad queries that legitimately match many photos still return more,
 # up to TOP_K, since they'll all fall under the threshold anyway.
-MAX_DISTANCE = 0.6
+MAX_DISTANCE = 0.65
 
 
 def retrieve_photos(user, query: str):
-    """Semantic search over a user's own described photos, nearest first, dropping anything too dissimilar to be a real match."""
-    query_vector = embed_text(query)
+    """Semantic search over a user's own described photos, nearest first, dropping anything too dissimilar to be a real match.
+
+    Photo descriptions are always full descriptive sentences (how the vision
+    model writes them). A bare keyword query like "church" embeds much
+    further from its true match than a full sentence does, so it's wrapped
+    in a short descriptive frame to bring it into the same phrasing style as
+    the descriptions -- this measurably tightens the distance to genuine
+    matches without needing to loosen the threshold enough to let real
+    mismatches through.
+    """
+    query_vector = embed_text(f"A photo of {query}.")
     return (
         Photo.objects.filter(user=user, status=Photo.Status.DONE)
         .annotate(distance=CosineDistance("embedding", query_vector))
