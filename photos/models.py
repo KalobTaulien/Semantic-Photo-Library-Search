@@ -17,6 +17,7 @@ class Photo(TimeStampedModel):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="photos")
     image = models.ImageField(upload_to=user_photo_upload_path)
     description = models.TextField(blank=True)
+    extracted_text = models.TextField(blank=True, default="")
     embedding = VectorField(dimensions=settings.OPENAI_EMBEDDING_DIMENSIONS, null=True, blank=True)
     status = models.CharField(max_length=20, choices=Status.choices, default=Status.PENDING)
     error_message = models.TextField(blank=True)

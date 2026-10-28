@@ -3,7 +3,7 @@ from celery.exceptions import MaxRetriesExceededError
 from openai import APIConnectionError, APITimeoutError, RateLimitError
 
 from .models import Photo
-from .services import caption_image, embed_text, guess_mime_type
+from .services import analyze_image, embed_text, guess_mime_type
 
 TRANSIENT_ERRORS = (RateLimitError, APITimeoutError, APIConnectionError)
 
@@ -18,8 +18,14 @@ def process_photo(self, photo_id: int) -> None:
     try:
         with photo.image.open("rb") as f:
             image_bytes = f.read()
-        description = caption_image(image_bytes, guess_mime_type(photo.image.name))
-        embedding = embed_text(description)
+        analysis = analyze_image(image_bytes, guess_mime_type(photo.image.name))
+        description = analysis.description
+        extracted_text = analysis.extracted_text
+
+        embedding_input = description
+        if extracted_text:
+            embedding_input += f"\n\nText visible in the image: {extracted_text}"
+        embedding = embed_text(embedding_input)
     except TRANSIENT_ERRORS as exc:
         try:
             raise self.retry(exc=exc)
@@ -35,6 +41,7 @@ def process_photo(self, photo_id: int) -> None:
         return
 
     photo.description = description
+    photo.extracted_text = extracted_text
     photo.embedding = embedding
     photo.status = Photo.Status.DONE
-    photo.save(update_fields=["description", "embedding", "status", "updated_at"])
+    photo.save(update_fields=["description", "extracted_text", "embedding", "status", "updated_at"])

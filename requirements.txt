@@ -10,3 +10,4 @@ pillow>=11.0
 langchain-core>=0.3
 langchain-openai>=1.6
 openai>=1.50
+pydantic>=2

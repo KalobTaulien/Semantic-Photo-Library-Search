@@ -7,7 +7,7 @@
     <div class="relative overflow-hidden rounded-lg bg-gray-100">
         <img src="{{ photo.image.url }}" alt="{{ photo.description|default:'Photo' }}"
              class="w-full cursor-pointer"
-             @click="$dispatch('photo-modal:open', { src: '{{ photo.image.url|escapejs }}', description: '{{ photo.description|escapejs }}' })">
+             @click="$dispatch('photo-modal:open', { src: '{{ photo.image.url|escapejs }}', description: '{{ photo.description|escapejs }}', extractedText: '{{ photo.extracted_text|escapejs }}' })">
         {% if photo.status != "done" %}
             <div class="absolute inset-0 flex items-center justify-center bg-black/40 text-xs font-medium text-white">
                 {% if photo.status == "failed" %}Failed{% else %}Processing&hellip;{% endif %}
